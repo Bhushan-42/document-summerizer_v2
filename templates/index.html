@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - AI Document Summarization</title> <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .hero-section p {
+            max-width: 600px;
+            margin: 15px auto; /* Center paragraph text */
+            line-height: 1.7;
+        }
+        .cta-button { /* Optional: Style for a call-to-action button */
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #5cb85c; /* Example color */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+        .cta-button:hover {
+            background-color: #4cae4c; /* Darker shade on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI-Powered Document Summarization System</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a></li>
+                    <li><a href="/summarization" class="{{ 'active' if active_page == 'summarization' else '' }}">Summarization</a></li>
+                    <li><a href="/visualization" class="{{ 'active' if active_page == 'visualization' else '' }}">Visualization</a></li>
+                    <li><a href="/about" class="{{ 'active' if active_page == 'about' else '' }}">About Project</a></li>
+                    <li><a href="/research" class="{{ 'active' if active_page == 'research' else '' }}">Research</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section class="hero-section">
+                <h2>Welcome to the AI Document Summarizer</h2>
+                <p>
+                    Overwhelmed by long documents? Need to quickly grasp the key points of a PDF or Word file?
+                    This tool leverages the power of Artificial Intelligence to help you out!
+                </p>
+                <p>
+                    Simply upload your document (currently supporting <strong>.pdf</strong> and <strong>.docx</strong> formats)
+                    on the Summarization page, and our AI assistant will generate a concise summary, highlighting the essential information.
+                </p>
+                <p>
+                    Save time, improve comprehension, and focus on what matters most.
+                </p>
+                <a href="/summarization" class="cta-button">Try the Summarizer Now!</a>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 Document Summarization Project</p>
+        </footer>
+    </div>
+    </body>
+</html>

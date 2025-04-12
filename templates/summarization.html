@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Summarization (PDF/DOCX)</title> <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .hidden { display: none; }
+        #summaryOutput { margin-top: 8px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI-Powered Document Summarization System</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a></li>
+                    <li><a href="/summarization" class="{{ 'active' if active_page == 'summarization' else '' }}">Summarization</a></li>
+                    <li><a href="/visualization" class="{{ 'active' if active_page == 'visualization' else '' }}">Visualization</a></li>
+                    <li><a href="/about" class="{{ 'active' if active_page == 'about' else '' }}">About Project</a></li>
+                    <li><a href="/research" class="{{ 'active' if active_page == 'research' else '' }}">Research</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main id="summarizationSection">
+            <h2>Summarize Your Document</h2>
+            <p>Upload a document (.pdf or .docx) to generate a summary.</p> <div class="input-container">
+                 <input type="file" id="documentUpload" name="file" accept=".pdf, .docx, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                <button type="button" id="summarizeButton" onclick="uploadAndSummarize()">Summarize</button>
+            </div>
+            <div id="loadingIndicator" style="display: none; text-align: center; padding: 10px;">Processing document and summarizing...</div>
+            <div id="resultsArea" class="hidden">
+                <h3>Summary</h3>
+                <div class="result-item">
+                    <p id="summaryOutput"></p>
+                </div>
+                </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Document Summarization Project</p>
+        </footer>
+    </div>
+    <script>
+        async function uploadAndSummarize() {
+            const fileInput = document.getElementById('documentUpload');
+            const resultsArea = document.getElementById('resultsArea');
+            const summaryOutput = document.getElementById('summaryOutput');
+            const summarizeButton = document.getElementById('summarizeButton');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select a document (.pdf or .docx) to upload.');
+                return;
+            }
+
+            // Optional: Client-side check (more specific)
+            const allowedTypes = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            const allowedExtensions = ['.pdf', '.docx'];
+            const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+
+            if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExtension)) {
+                 alert(`File type not allowed. Please upload PDF or DOCX. Detected type: ${file.type || 'unknown'}, Extension: ${fileExtension}`);
+                 return;
+            }
+
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            summarizeButton.disabled = true;
+            summarizeButton.textContent = 'Processing...';
+            loadingIndicator.style.display = 'block';
+            resultsArea.classList.add('hidden');
+
+            try {
+                const response = await fetch('/summarize', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                let data = null;
+                try {
+                  data = await response.json();
+                } catch(jsonError) {
+                  console.error("Could not parse JSON response:", jsonError);
+                  if (!response.ok) {
+                     throw new Error(`Server error: ${response.status} ${response.statusText}. Response was not valid JSON.`);
+                  } else {
+                     throw new Error("Received non-JSON response from server.");
+                  }
+                }
+
+                if (response.ok && data) {
+                    summaryOutput.textContent = data.summary || 'No summary received.';
+                    resultsArea.classList.remove('hidden');
+                } else {
+                    alert(`Error: ${data?.error || 'An unknown error occurred on the server.'}`);
+                    resultsArea.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error("Upload/Summarization Error:", error);
+                alert(`Failed to process the document. Error: ${error.message}`);
+                resultsArea.classList.add('hidden');
+            } finally {
+                 summarizeButton.disabled = false;
+                 summarizeButton.textContent = 'Summarize';
+                 loadingIndicator.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

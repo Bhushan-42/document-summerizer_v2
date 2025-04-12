@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excel Data Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <style>
+        .hidden { display: none; }
+        #chartDiv { margin-top: 20px; min-height: 400px; } /* Ensure chart area has size */
+        #errorMessage { color: red; margin-top: 10px; white-space: pre-wrap; }
+        .limitations { margin-top: 15px; padding: 10px; border: 1px solid #ddd; background-color: #f9f9f9; border-radius: 4px; }
+        .limitations ul { margin-top: 5px; padding-left: 20px; }
+        .limitations li { margin-bottom: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AI-Powered Document System</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a></li>
+                    <li><a href="/summarization" class="{{ 'active' if active_page == 'summarization' else '' }}">Summarization</a></li>
+                    <li><a href="/visualization" class="{{ 'active' if active_page == 'visualization' else '' }}">Visualization</a></li>
+                    <li><a href="/about" class="{{ 'active' if active_page == 'about' else '' }}">About Project</a></li>
+                    <li><a href="/research" class="{{ 'active' if active_page == 'research' else '' }}">Research</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main id="visualizationSection">
+            <h2>Visualize Your Excel Data</h2>
+            <p>Upload an Excel file (.xlsx or .xls) to automatically generate a simple bar chart.</p>
+
+            <div class="limitations">
+                <strong>Important Limitations:</strong>
+                <ul>
+                    <li>Only data from the <strong>first sheet</strong> in the Excel file is read.</li>
+                    <li>It strictly assumes the <strong>first column</strong> contains category labels (X-axis).</li>
+                    <li>It strictly assumes the <strong>second column</strong> contains numerical values (Y-axis).</li>
+                    <li>All other columns are ignored.</li>
+                    <li>Only a <strong>bar chart</strong> can be generated automatically.</li>
+                    <li>If the second column does not contain mostly numbers, visualization will likely fail.</li>
+                    <li>Complex layouts, merged cells, or formulas might cause errors.</li>
+                    <li>There are no options to select specific columns, sheets, or chart types.</li>
+                </ul>
+            </div>
+            <div class="input-container" style="margin-top: 20px;">
+                 <input type="file" id="excelUpload" name="file" accept=".xlsx, .xls, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                <button type="button" id="visualizeButton" onclick="uploadAndVisualize()">Visualize</button>
+            </div>
+            <div id="loadingIndicator" style="display: none; text-align: center; padding: 10px;">Processing Excel file and generating chart...</div>
+            <div id="resultsArea" class="hidden">
+                <h3>Generated Chart</h3>
+                <div id="chartDiv"></div>
+                <p id="errorMessage" class="hidden"></p> </div>
+        </main>
+        <footer>
+            <p>&copy; 2025 Document Summarization & Visualization Project</p>
+        </footer>
+    </div>
+
+    <script>
+        async function uploadAndVisualize() {
+            const fileInput = document.getElementById('excelUpload');
+            const resultsArea = document.getElementById('resultsArea');
+            const chartDiv = document.getElementById('chartDiv');
+            const errorMessage = document.getElementById('errorMessage');
+            const visualizeButton = document.getElementById('visualizeButton');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Please select an Excel file (.xlsx or .xls) to upload.');
+                return;
+            }
+
+            // Basic client-side check for extension
+            const allowedExtensions = ['.xlsx', '.xls'];
+            const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+            if (!allowedExtensions.includes(fileExtension)) {
+                alert(`File type not allowed. Please upload XLSX or XLS. Detected extension: ${fileExtension}`);
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            visualizeButton.disabled = true;
+            visualizeButton.textContent = 'Processing...';
+            loadingIndicator.style.display = 'block';
+            resultsArea.classList.add('hidden'); // Hide previous results/errors
+            errorMessage.classList.add('hidden');
+            errorMessage.textContent = ''; // Clear previous errors
+            Plotly.purge(chartDiv); // Clear previous chart
+
+            try {
+                // Send to the '/visualization' endpoint
+                const response = await fetch('/visualization', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                let data = null;
+                try {
+                    data = await response.json();
+                } catch (jsonError) {
+                    console.error("Could not parse JSON response:", jsonError);
+                    const textResponse = await response.text(); // Try to get raw response text
+                    console.error("Raw server response:", textResponse);
+                    if (!response.ok) {
+                         throw new Error(`Server error: ${response.status} ${response.statusText}. Response was not valid JSON.`);
+                    } else {
+                         throw new Error("Received non-JSON response from server.");
+                    }
+                }
+
+                if (response.ok && data && data.chart_json) {
+                    // Use Plotly.react for potentially faster updates if chart exists
+                    Plotly.react(chartDiv, data.chart_json.data, data.chart_json.layout);
+                    resultsArea.classList.remove('hidden');
+                } else {
+                    // Display error from backend
+                    errorMessage.textContent = `Error: ${data?.error || 'An unknown error occurred on the server.'}`;
+                    errorMessage.classList.remove('hidden');
+                    resultsArea.classList.add('hidden'); // Keep results hidden on error
+                     console.error("Backend Error:", data?.error || 'Unknown error');
+                }
+            } catch (error) {
+                console.error("Upload/Visualization Error:", error);
+                errorMessage.textContent = `Failed to process the file. Error: ${error.message}`;
+                errorMessage.classList.remove('hidden');
+                resultsArea.classList.add('hidden');
+            } finally {
+                visualizeButton.disabled = false;
+                visualizeButton.textContent = 'Visualize';
+                loadingIndicator.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

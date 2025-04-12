@@ -1,0 +1,70 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environment
+doc/
+env/
+ENV/
+env.bak/
+*.virtualenv
+
+# Cache files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+*.cache
+*.coverage
+*.cover
+*.py,cover
+*.mypy_cache/
+*.pytest_cache/
+*.hypothesis/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Python-specific
+pip-log.txt
+pip-delete-this-directory.txt
+
+# IDE-specific
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Specific to your project
+doc/lib/python3.9/site-packages/
+Library/Caches/com.apple.python/

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About This Project</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <style>
+        /* Navigation hover effect */
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #007BFF;
+            transform: scale(1.1);
+        }
+
+        /* Fade-in animation for main content */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header styling */
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Button hover effect (if needed later) */
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container fade-in">
+        <header>
+            <h1>AI-Powered Document Summarization System</h1>
+            <nav>
+                <ul>
+                    <li><a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a></li>
+                    <li><a href="/summarization" class="{{ 'active' if active_page == 'summarization' else '' }}">Summarization</a></li>
+                    <li><a href="/visualization" class="{{ 'active' if active_page == 'visualization' else '' }}">Visualization</a></li>
+                    <li><a href="/about" class="{{ 'active' if active_page == 'about' else '' }}">About Project</a></li>
+                    <li><a href="/research" class="{{ 'active' if active_page == 'research' else '' }}">Research</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <h2>About This Project</h2>
+                <p>This Master's project focuses on developing an AI-powered document summarization system capable of handling various document formats. The system aims to provide accurate and coherent summaries along with informative visualizations.</p>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
