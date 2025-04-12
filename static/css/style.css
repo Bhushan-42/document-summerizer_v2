@@ -1,36 +1,42 @@
+/* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    background-color: #f4f6f8; /* Light background */
-    color: #333; /* Dark text */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/back.jpg') no-repeat center center fixed;
+    background-size: cover; /* Ensure the image covers the entire viewport */
+    color: #fff; /* Light text for contrast */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: background 0.5s ease-in-out; /* Smooth transition for background changes */
 }
 
 .container {
-    max-width: 960px;
-    margin: 20px auto;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Subtle shadow */
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     padding: 20px;
+    backdrop-filter: blur(10px); /* Glassmorphism effect */
+    animation: fadeIn 1.5s ease-in-out; /* Fade-in animation */
 }
 
 header {
-    padding: 20px 0;
+    padding: 10px 0; /* Reduce padding */
     text-align: center;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 10px; /* Reduce margin */
 }
 
 header h1 {
-    color: #28a745; /* A green color for this project */
-    font-size: 28px;
+    color: #28a745;
+    font-size: 36px;
     margin: 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+    animation: slideIn 1s ease-in-out; /* Slide-in animation */
 }
 
 nav ul {
@@ -46,33 +52,36 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #555;
+    color: #fff;
     text-decoration: none;
     padding: 8px 12px;
     border-radius: 4px;
+    background: linear-gradient(45deg, #28a745, #218838);
+    transition: transform 0.3s ease, background 0.3s ease; /* Smooth hover effects */
 }
 
 nav ul li a.active {
-    color: #fff;
-    background-color: #28a745; /* Green for active */
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    transform: scale(1.1); /* Slightly enlarge active link */
 }
 
 nav ul li a:hover {
-    background-color: #ddd;
-    color: #333;
+    background: linear-gradient(45deg, #1e7e34, #155724);
+    transform: scale(1.1); /* Enlarge on hover */
 }
 
 main {
-    padding: 20px;
+    padding: 10px 20px; /* Adjust padding for better spacing */
     flex-grow: 1;
+    animation: fadeIn 1.5s ease-in-out; /* Keep fade-in animation */
 }
 
 main h2 {
-    color: #333;
+    color: #fff;
     text-align: left;
     margin-top: 0;
     margin-bottom: 15px;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     padding-bottom: 10px;
 }
 
@@ -84,6 +93,7 @@ main.hero {
 main.hero h2 {
     font-size: 2.5em;
     margin-bottom: 15px;
+    animation: slideIn 1s ease-in-out; /* Slide-in animation */
 }
 
 main.hero p {
@@ -92,74 +102,83 @@ main.hero p {
     margin-bottom: 10px;
 }
 
-#summarizationSection {
+/* Footer Styles */
+footer {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+/* Center Content */
+.center-content {
+    margin-top: 0; /* Remove any extra margin */
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-#summarizationSection .input-container {
-    display: flex;
-    gap: 10px;
     align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: calc(100vh - 150px); /* Adjust height dynamically based on header/footer */
+    padding: 20px;
+    color: #fff;
 }
 
-#summarizationSection input[type="file"] {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-#summarizationSection button {
-    padding: 10px 15px;
-    background-color: #28a745; /* Green for button */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-#summarizationSection button:hover {
-    background-color: #1e7e34;
-}
-
-#resultsArea {
-    margin-top: 20px;
-    padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-}
-
-#resultsArea h3 {
-    color: #333;
-    margin-top: 0;
-    margin-bottom: 10px;
-    text-align: left;
-}
-
-.result-item {
+.center-content h2 {
+    font-size: 2.5em;
     margin-bottom: 15px;
-    padding: 15px;
-    background-color: #eee;
-    border-radius: 4px;
+    animation: fadeIn 1.5s ease-in-out; /* Fade-in animation */
 }
 
-.result-item p {
+.center-content p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
     line-height: 1.6;
 }
 
-.hidden {
-    display: none;
+/* Call-to-Action Button */
+.cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(45deg, #28a745, #218838);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-footer {
-    background-color: #f4f6f8;
-    padding: 20px;
-    border-top: 1px solid #eee;
-    text-align: center;
-    color: #777;
-    font-size: 0.9em;
+.cta-button:hover {
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3px); /* Slight lift on hover */
+}
+
+.cta-button:active {
+    transform: translateY(2px); /* Pressed effect */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }

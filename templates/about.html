@@ -5,77 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About This Project</title>
     <link rel="stylesheet" href="static/css/style.css">
-    <style>
-        /* Navigation hover effect */
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-        nav ul li a:hover {
-            color: #007BFF;
-            transform: scale(1.1);
-        }
-
-        /* Fade-in animation for main content */
-        .fade-in {
-            opacity: 0;
-            animation: fadeIn 1.5s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Header styling */
-        header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        /* Button hover effect (if needed later) */
-        button {
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-        }
-    </style>
+    
 </head>
 <body>
-    <div class="container fade-in">
+    <div class="container">
         <header>
             <h1>AI-Powered Document Summarization System</h1>
-            <nav>
-                <ul>
-                    <li><a href="/" class="{{ 'active' if active_page == 'home' else '' }}">Home</a></li>
-                    <li><a href="/summarization" class="{{ 'active' if active_page == 'summarization' else '' }}">Summarization</a></li>
-                    <li><a href="/visualization" class="{{ 'active' if active_page == 'visualization' else '' }}">Visualization</a></li>
-                    <li><a href="/about" class="{{ 'active' if active_page == 'about' else '' }}">About Project</a></li>
-                    <li><a href="/research" class="{{ 'active' if active_page == 'research' else '' }}">Research</a></li>
-                </ul>
-            </nav>
+            {% include 'navbar.html' %}
         </header>
         <main>
             <section>
                 <h2>About This Project</h2>
                 <p>This Master's project focuses on developing an AI-powered document summarization system capable of handling various document formats. The system aims to provide accurate and coherent summaries along with informative visualizations.</p>
+
+                <h3>Plan for the Past Three Weeks</h3>
+                <p>The plan for the past three weeks focused on enhancing the core functionalities of the document summarization system:</p>
+                <ul>
+                    <li><strong>Enhanced Document Upload and Preprocessing:</strong> Implementing robust document upload for Word, PDF, text, and images, and developing comprehensive preprocessing logic with OCR for images.</li>
+                    <li><strong>Advanced Summarization Integration:</strong> Refining the integration with the open-source llama model (via Ollama) to optimize summarization accuracy and coherence.</li>
+                    <li><strong>Visualization Development:</strong> Developing more informative and user-friendly visualizations using LangGraph to represent document summaries effectively.</li>
+                    <li><strong>Initial System Testing:</strong> Conducting functionality and initial accuracy testing of the core components.</li>
+                </ul>
+
+                <h3>Progress Made</h3>
+                <p>The core plan for the past three weeks has been successfully completed, with the integration of the backend with the LLM (Llama 3.1 8B via Ollama) achieved.</p>
+                <ul>
+                    <li><strong>Enhanced Document Upload and Preprocessing:</strong> Robust document upload in FastAPI now supports Word, PDF, text, and image formats. Comprehensive preprocessing, including OCR for images, ensures accurate text extraction.</li>
+                    <li><strong>Advanced Summarization Integration:</strong> Seamless connectivity between preprocessed text and the Llama 3.1 8B model (via Ollama) has been established. Rigorous testing with various summarization techniques and parameters shows promising results.</li>
+                    <li><strong>Visualization Development:</strong> Informative visualizations using LangGraph have been developed and successfully integrated into the Streamlit user interface.</li>
+                    <li><strong>Initial System Testing:</strong> Functionality testing across all components and initial accuracy testing of the summarization output have yielded satisfactory results.</li>
+                </ul>
+
+                <h3>Challenges Overcome</h3>
+                <ul>
+                    <li><strong>Accurate Text Extraction from Diverse Document Formats:</strong> Complexity in handling varied PDF structures and images was overcome through careful implementation and testing of preprocessing techniques and the OCR engine.</li>
+                    <li><strong>Achieving High Accuracy and Coherence in LLM-based Summarization:</strong> Optimizing the summarization process with Llama 3.1 8B required experimentation with prompts and model parameters, leading to good initial results.</li>
+                    <li><strong>Developing Effective Visualizations for Document Summaries:</strong> Designing intuitive visualizations with LangGraph required careful consideration of user experience and the summarized content, resulting in initial visualizations that effectively convey the essence of summaries.</li>
+                </ul>
+
+                <h3>Tech Stack</h3>
+                <ul>
+                    <li><strong>FastAPI:</strong> Used for the backend to handle document upload and preprocessing.</li>
+                    <li><strong>Ollama:</strong> Used to host and serve the Llama 3.1 8B model.</li>
+                    <li><strong>Llama 3.1 8B Model:</strong> The Large Language Model used for document summarization.</li>
+                    <li><strong>LangGraph:</strong> Used for developing visualizations of document summaries.</li>
+                    <li><strong>Streamlit:</strong> Used for the user interface.</li>
+                    <li><strong>OCR Engine:</strong> Integrated for extracting text from images (specify the library if you know it, e.g., Tesseract).</li>
+                    <li><strong>Other Libraries:</strong> (Mention any other relevant libraries like PyPDF2, python-docx, etc.).</li>
+                </ul>
             </section>
         </main>
+        <footer>
+            <p>&copy; 2025 Document Summarization Project</p>
+        </footer>
     </div>
 </body>
 </html>
