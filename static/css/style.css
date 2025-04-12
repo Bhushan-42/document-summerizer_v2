@@ -25,26 +25,36 @@ body {
 }
 
 header {
-    padding: 10px 0; /* Reduce padding */
+    background: url('../images/back4.jpg') no-repeat center center; /* Add back4.jpg as the background */
+    background-size: cover; /* Ensure the image covers the header area */
+    padding: 20px 0; /* Adjust padding for spacing */
+    margin-bottom: 20px; /* Add spacing below the header */
+    color: #ffcc00; /* Bright yellow for the header text */
     text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    margin-bottom: 10px; /* Reduce margin */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: Add a subtle shadow */
 }
 
 header h1 {
-    color: #28a745;
-    font-size: 36px;
+    font-size: 2.5em;
     margin: 0;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
-    animation: slideIn 1s ease-in-out; /* Slide-in animation */
+    color: #ffcc00; /* Bright yellow for the header text */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow for better visibility */
+}
+
+nav {
+    background: url('../images/back4.jpg') no-repeat center center; /* Explicitly set the same background as the header */
+    background-size: cover; /* Ensure the image covers the navbar area */
+    padding: 10px 0; /* Add padding for spacing */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: Add a subtle shadow for separation */
 }
 
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 15px 0 0 0;
     display: flex;
     justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: transparent; /* Ensure the ul has no background */
 }
 
 nav ul li {
@@ -52,22 +62,23 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #ffcc00; /* Bright yellow for navbar links */
     text-decoration: none;
     padding: 8px 12px;
     border-radius: 4px;
-    background: linear-gradient(45deg, #28a745, #218838);
-    transition: transform 0.3s ease, background 0.3s ease; /* Smooth hover effects */
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background for buttons */
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.4); /* Slightly brighter background on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    color: #ffffff; /* Change to white on hover for better contrast */
 }
 
 nav ul li a.active {
     background: linear-gradient(45deg, #218838, #1e7e34);
     transform: scale(1.1); /* Slightly enlarge active link */
-}
-
-nav ul li a:hover {
-    background: linear-gradient(45deg, #1e7e34, #155724);
-    transform: scale(1.1); /* Enlarge on hover */
 }
 
 main {
@@ -443,3 +454,51 @@ main {
     padding: 0;
     color: #fff;
 }
+header {
+    background: url('../images/back4.jpg') no-repeat center center; /* Add back4.jpg as the background */
+    background-size: cover; /* Ensure the image covers the header area */
+    padding: 20px 0; /* Adjust padding for spacing */
+    margin-bottom: 0; /* Remove spacing below the header */
+    color: #fff; /* Ensure text is readable on the background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Optional: Add a subtle shadow */
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    color: #ffcc00; /* Bright yellow for the header text */
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* Add shadow for better visibility */
+}
+
+nav {
+    background: transparent; /* Remove any explicit background for the navbar */
+    padding: 10px 0; /* Add padding for spacing */
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #ffcc00; /* Bright yellow for navbar links */
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+/* Navbar hover effect remains */
+nav ul li a:hover {
+    background: rgba(255, 255, 255, 0.4); /* Slightly brighter background on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    color: #ffffff; /* Change to white on hover for better contrast */
+}
+
